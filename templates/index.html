@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API Contract Forge</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="logo">ACF</span><span>API Contract Forge</span></div>
+  <div class="tagline">Local-first API design and integration-contract reviewer. Paste a brief or an OpenAPI document, get a scored review, a fix plan and a starter OpenAPI file. No API keys, no outbound calls.</div>
+</header>
+
+<main>
+  <section class="pane">
+    <div class="pane-head">
+      <h2>Contract</h2>
+      <div class="controls">
+        <label>Mode
+          <select id="mode">
+            <option value="auto">Auto detect</option>
+            <option value="brief">Written brief</option>
+            <option value="openapi">OpenAPI 3 JSON</option>
+          </select>
+        </label>
+        <label>Profile
+          <select id="profile">
+            <option value="rest">General REST</option>
+            <option value="public">Public / partner</option>
+            <option value="internal">Internal service</option>
+            <option value="webhook">Webhook / events</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <textarea id="input" spellcheck="false" placeholder="Paste a contract brief such as:
+
+POST /v1/orders
+Creates an order. Body fields: customer_id (string, required), items (array, required). Returns 201 with the created order.
+
+or paste an OpenAPI 3 JSON document."></textarea>
+    <div class="actions">
+      <button id="run" class="primary">Review contract</button>
+      <span id="status" class="status"></span>
+    </div>
+    <div class="samples">
+      <h3>Sample contracts</h3>
+      <div id="sampleList" class="sample-list"></div>
+    </div>
+    <div class="history">
+      <h3>Recent reviews</h3>
+      <div id="history" class="history-list"></div>
+    </div>
+  </section>
+
+  <section class="pane results">
+    <div id="empty" class="empty">
+      <h3>Nothing reviewed yet</h3>
+      <p>Paste a contract on the left, load one of the samples, and press <strong>Review contract</strong>.</p>
+      <ul class="empty-list">
+        <li>50 contract rules across six axes</li>
+        <li>Evidence and a concrete fix for every finding</li>
+        <li>Example payloads and curl per operation</li>
+        <li>Starter OpenAPI 3 export</li>
+      </ul>
+    </div>
+    <div id="report" hidden></div>
+  </section>
+</main>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
